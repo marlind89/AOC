@@ -8,23 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Inputs\Puzzle1.txt" />
-    <None Remove="Inputs\Puzzle2.txt" />
-    <None Remove="Inputs\Puzzle3.txt" />
-    <None Remove="Inputs\Puzzle4.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Inputs\Puzzle1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Inputs\Puzzle3.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Inputs\Puzzle2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Inputs\Puzzle4.txt">
+    <Content Include="Inputs\*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
