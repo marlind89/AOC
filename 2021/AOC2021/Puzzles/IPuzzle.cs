@@ -2,11 +2,6 @@
 {
     internal interface IPuzzle
     {
-    }
-
-    internal interface IPuzzle<TAnswer> : IPuzzle
-    {
-        TAnswer One();
-        TAnswer Two();
+        void Solve();
     }
 }

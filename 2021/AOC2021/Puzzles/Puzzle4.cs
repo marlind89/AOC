@@ -10,29 +10,26 @@
             public Square(int number) => Number = number;
         }
 
-        private readonly List<int> _bingoResults;
-
-        public Puzzle4()
+        protected override void Solve(string[] lines)
         {
-            var lines = File.ReadAllLines("Inputs/Puzzle4.txt");
             var numbers = lines[0].Split(',')
-                .Select(int.Parse)
-                .ToArray();
+               .Select(int.Parse)
+               .ToArray();
+
             var boards = lines.Skip(1)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(boardLine => boardLine
                     .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x =>  new Square(int.Parse(x)))
+                    .Select(x => new Square(int.Parse(x)))
                     .ToArray())
                 .Chunk(5)
                 .ToArray();
 
-            _bingoResults = PlayBingo(numbers, boards);
+            var bingoResults = PlayBingo(numbers, boards);
+
+            One = bingoResults.First();
+            Two = bingoResults.Last();
         }
-
-        public override int One() => _bingoResults.First();
-
-        public override int Two() => _bingoResults.Last();
 
         private static List<int> PlayBingo(int[] numbers, Square[][][] boards)
         {

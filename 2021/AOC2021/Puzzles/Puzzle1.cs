@@ -2,22 +2,20 @@
 {
     internal class Puzzle1 : Puzzle<int>
     {
-        private readonly List<int> _depths = File.ReadAllLines("Inputs/Puzzle1.txt")
-            .Select(int.Parse)
-            .ToList();
+        private const int WindowSize = 3;
 
-        public override int One() => GetMeasurementCounts(_depths);
-
-        public override int Two()
+        protected override void Solve(string[] lines)
         {
-            const int windowSize = 3;
+            var depths = lines.Select(int.Parse).ToList();
 
-            var windowSums = _depths
-                .Where((_, idx) => idx <= (_depths.Count - windowSize))
-                .Select((_, idx) =>  _depths.GetRange(idx, windowSize).Sum())
+            One = GetMeasurementCounts(depths);
+
+            var windowSums = depths
+                .Where((_, idx) => idx <= (depths.Count - WindowSize))
+                .Select((_, idx) => depths.GetRange(idx, WindowSize).Sum())
                 .ToList();
-
-            return GetMeasurementCounts(windowSums);
+            
+            Two = GetMeasurementCounts(windowSums);
         }
 
         private static int GetMeasurementCounts(IReadOnlyCollection<int> depths)

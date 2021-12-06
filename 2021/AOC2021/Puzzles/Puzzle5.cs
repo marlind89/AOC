@@ -23,13 +23,9 @@
             }
         }
 
-        private readonly Line[] _lines;
-        private readonly int _topX;
-        private readonly int _topY;
-
-        public Puzzle5()
+        protected override void Solve(string[] lineData)
         {
-            _lines = File.ReadAllLines("Inputs/Puzzle5.txt")
+            var lines = lineData
                 .Select(x =>
                 {
                     var split = x.Split(" -> ");
@@ -37,29 +33,19 @@
                 })
                 .ToArray();
 
-            _topX = _lines.SelectMany(l => new int[] { l.From.x, l.To.x }).Max() + 1;
-            _topY = _lines.SelectMany(l => new int[] { l.From.y, l.To.y }).Max() + 1;
+            var endPoint = new Point(
+                lines.SelectMany(l => new int[] { l.From.x, l.To.x }).Max() + 1,
+                lines.SelectMany(l => new int[] { l.From.y, l.To.y }).Max() + 1);
+
+            One = CountOverlaps(endPoint, lines.Where(x => x.From.x == x.To.x || x.From.y == x.To.y));
+            Two = CountOverlaps(endPoint, lines);
         }
 
-        public override int One()
+        private static int CountOverlaps(Point endPoint, IEnumerable<Line> lines)
         {
-            var diagram = new int[_topX, _topY];
+            var diagram = new int[endPoint.x, endPoint.y];
 
-            foreach (var point in _lines
-                .Where(x => x.From.x == x.To.x || x.From.y == x.To.y)
-                .SelectMany(IterateLine))
-            {
-                diagram[point.x, point.y] += 1;
-            }
-
-            return CountOverlaps(diagram);
-        }
-
-        public override int Two()
-        {
-            var diagram = new int[_topX, _topY];
-
-            foreach (var point in _lines.SelectMany(IterateLine))
+            foreach (var point in lines.SelectMany(IterateLine))
             {
                 diagram[point.x, point.y] += 1;
             }

@@ -12,6 +12,7 @@ Console.WriteLine("Advent Of Code 2021");
 Console.WriteLine(new string('-', 30));
 foreach (var puzzle in puzzles)
 {
+    puzzle.Solve();
     Console.WriteLine(puzzle);
 }
 
