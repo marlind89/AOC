@@ -2,30 +2,27 @@
 {
     internal class Puzzle3 : Puzzle<int>
     {
-        private readonly string[] _diagnosticReport = File.ReadAllLines("Inputs/Puzzle3.txt");
         private const int BitLength = 12;
 
-        public override int One()
+        protected override void Solve(string[] lines)
         {
             var gamma = Enumerable.Range(0, BitLength)
-                .Aggregate("", (str, x) => str + FindCommonBit(_diagnosticReport, x, true));
+                .Aggregate("", (str, x) => str + FindCommonBit(lines, x, true));
 
             var gammaNumber = Convert.ToInt32(gamma, 2);
             var epsilon = ~gammaNumber & 0xfff;
 
-            return gammaNumber * epsilon;
+            One = gammaNumber * epsilon;
+
+            var oxygenGeneratorRating = CalculateRating(lines, true);
+            var co2ScrubberRating = CalculateRating(lines, false);
+            
+            Two = oxygenGeneratorRating * co2ScrubberRating; ;
         }
 
-        public override int Two() 
+        private static int CalculateRating(string[] diagnosticReport, bool mostCommonValue)
         {
-            var oxygenGeneratorRating = CalculateRating(true);
-            var co2ScrubberRating = CalculateRating(false);
-            return oxygenGeneratorRating * co2ScrubberRating;
-        }
-
-        private int CalculateRating(bool mostCommonValue)
-        {
-            var lines = _diagnosticReport.ToList();
+            var lines = diagnosticReport.ToList();
             foreach (var idx in Enumerable.Range(0, BitLength))
             {
                 var commonBit = FindCommonBit(lines, idx, mostCommonValue);
