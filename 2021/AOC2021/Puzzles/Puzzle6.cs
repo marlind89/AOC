@@ -4,7 +4,7 @@
     {
         protected override void Solve(string[] lines)
         {
-            var initialFishes = Enumerable.Range(0, 9).ToDictionary(day => day, _ => 0L);
+            var initialFishes = Enumerable.Range(0, 9).Select(_ => 0L).ToArray();
 
             foreach (var fish in lines[0].Split(",").Select(int.Parse))
             {
@@ -15,31 +15,29 @@
             Two = CountFishes(initialFishes, 256);
         }
 
-        private static long CountFishes(IDictionary<int, long> fishDict, int days) => Enumerable
-            .Range(0, days)
-            .Aggregate(fishDict, (a, _) => a = SimulateDay(a))
-            .Values
-            .Sum();
-
-        private static IDictionary<int, long> SimulateDay(IDictionary<int, long> fishDict)
+        private static long CountFishes(long[] fishes, int days)
         {
-            var result = fishDict.ToDictionary(x => x.Key, _ => 0L);
-            foreach (var age in Enumerable.Range(0, 9).Reverse())
+            fishes = fishes.ToArray();
+
+            foreach (var _ in Enumerable.Range(0, days))
             {
-                if (age > 0)
-                {
-                    result[age - 1] = fishDict[age];
-                }
-                else
-                {
-                    var fishCount = fishDict[0];
-                    result[6] += fishCount;
-                    result[8] += fishCount; 
-                }
-                
+                SimulateDay(fishes);
             }
 
-            return result;
+            return fishes.Sum();
+        }
+
+        private static void SimulateDay(long[] fishes)
+        {
+            var newSpawns = fishes[0];
+
+            foreach (var age in Enumerable.Range(1, 8))
+            {
+                fishes[age - 1] = fishes[age];
+            }
+
+            fishes[6] += newSpawns;
+            fishes[8] = newSpawns;
         }
     }
 }
