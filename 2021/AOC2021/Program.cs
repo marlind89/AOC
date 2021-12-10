@@ -10,7 +10,7 @@ var puzzles = AppDomain.CurrentDomain.GetAssemblies()
 
 Console.WriteLine("Advent Of Code 2021");
 Console.WriteLine(new string('-', 30));
-foreach (var puzzle in puzzles)
+foreach (var puzzle in puzzles.OrderBy(x => x.PuzzleNumber))
 {
     puzzle.Solve();
     Console.WriteLine(puzzle);
