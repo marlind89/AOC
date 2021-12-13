@@ -5,7 +5,7 @@
         public static readonly (int x, int y)[] NeighborOffsets = new[] { (-1, 0), (1, 0), (0, -1), (0, 1) };
         public static readonly (int x, int y)[] NeighborOffsetsWithDiags = new[] { (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (1, 1), (-1, 1) };
 
-        public static IEnumerable<(int x, int y)> Iterate(int[,] arr)
+        public static IEnumerable<(int x, int y)> Iterate<T>(T[,] arr)
         {
             for (int x = 0; x < arr.GetLength(0); x++)
             {

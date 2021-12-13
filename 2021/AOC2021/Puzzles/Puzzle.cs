@@ -2,12 +2,16 @@
 
 namespace AOC2021.Puzzles
 {
-    internal abstract class Puzzle<T> : IPuzzle
+    internal abstract class Puzzle<T> : Puzzle<T,T>
+    { 
+    }
+
+    internal abstract class Puzzle<T1, T2> : IPuzzle
     {
         public int PuzzleNumber { get; }
 
-        protected T? One { get; set; }
-        protected T? Two { get; set; }
+        protected T1? One { get; set; }
+        protected T2? Two { get; set; }
 
         private readonly string[] _lines;
 
