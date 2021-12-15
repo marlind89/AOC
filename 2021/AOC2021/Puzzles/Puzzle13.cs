@@ -32,13 +32,14 @@ namespace AOC2021.Puzzles
             var sb = new StringBuilder(Environment.NewLine);
             for (var y = 0; y < finalGrid.GetLength(1); y++)
             {
+                sb.Append("    ");
                 for (var x = 0; x < finalGrid.GetLength(0); x++)
                 {
-                    sb.Append(finalGrid[x, y] ? '#' : '.');
+                    sb.Append(finalGrid[x, y] ? '#' : ' ');
                 }
                 sb.AppendLine();
             }
-            Two = sb.ToString();
+            Two = sb.ToString()[..^1];
         }
 
         private static bool[,] Fold(bool[,] grid, Instruction foldInstruction)
