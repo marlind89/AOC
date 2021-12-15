@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace AOC2021.Puzzles
 {
@@ -14,21 +15,32 @@ namespace AOC2021.Puzzles
         protected T2? Two { get; set; }
 
         private readonly string[] _lines;
+        private long _solveTime;
 
         public Puzzle() 
         {
             PuzzleNumber = int.Parse(GetType().Name.Replace("Puzzle", ""));
              _lines = File.ReadAllLines($"Inputs/Puzzle{PuzzleNumber}.txt");
-        } 
+        }
 
-        public void Solve() => Solve(_lines);
+        public void Solve() 
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+            Solve(_lines);
+            sw.Stop();
+            _solveTime = sw.ElapsedMilliseconds;
+        }
+        
         protected abstract void Solve(string[] lines);
 
         public override string ToString()
         {
             var builder = new StringBuilder();
-            builder.AppendLine($"Puzzle {PuzzleNumber}, Part One: {One}");
-            builder.AppendLine($"Puzzle {PuzzleNumber}, Part Two: {Two}");
+            builder.AppendLine($"Puzzle {PuzzleNumber} ({_solveTime} ms)");
+            builder.AppendLine();
+            builder.AppendLine($"  Part One: {One}");
+            builder.AppendLine($"  Part Two: {Two}");
             return builder.ToString();
         }
     }
