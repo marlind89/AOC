@@ -163,36 +163,32 @@
                 return false;
             }
 
+            static Node CreateNode(int value) => new(
+                new Leaf((int)Math.Floor(value / 2.0)),
+                new Leaf((int)Math.Ceiling(value / 2.0))
+            );
+
             if (nl.Left is Leaf ll && ll.Value >= 10)
             {
-                nl.Left = new Node(
-                    new Leaf((int) Math.Floor(ll.Value / 2.0)),
-                    new Leaf((int) Math.Ceiling(ll.Value / 2.0))
-                );
+                nl.Left = CreateNode(ll.Value);
                 return true;
             }
-            else
+            
+            if (Split(nl.Left))
             {
-                if (Split(nl.Left))
-                {
-                    return true;
-                }
+                return true;
             }
+
             if (nl.Right is Leaf lr && lr.Value >= 10)
             {
-                nl.Right = new Node(
-                    new Leaf((int)Math.Floor(lr.Value / 2.0)),
-                    new Leaf((int)Math.Ceiling(lr.Value / 2.0))
-                );
+                nl.Right = CreateNode(lr.Value);
                 return true;
             }
-            else
+
+            if (Split(nl.Right))
             {
-                if (Split(nl.Right))
-                {
-                    return true;
-                };
-            }
+                return true;
+            };
 
             return false;
         }
@@ -246,6 +242,7 @@
                     return par;
                 }
             }
+
             if (root.Right is Node nr)
             {
                 if (nr == child)
@@ -288,7 +285,7 @@
 
             return nodes[idx + 1];
         }
-
+            
         static List<Leaf> AllLeafs(INode node)
         {
             var nodes = new List<Leaf>();
