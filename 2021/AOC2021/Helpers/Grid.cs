@@ -3,7 +3,8 @@
     internal class Grid
     {
         public static readonly (int x, int y)[] NeighborOffsets = new[] { (-1, 0), (1, 0), (0, -1), (0, 1) };
-        public static readonly (int x, int y)[] NeighborOffsetsWithDiags = new[] { (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (1, 1), (-1, 1) };
+        public static readonly (int x, int y)[] NeighborOffsetsWithDiags = new[] { (-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1) };
+        public static readonly (int x, int y)[] NeighborOffsetsWithDiagsIncludeSelf = new[] { (-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1) };
 
         public static void Fill<T>(T[,] grid, T val)
         {
@@ -39,7 +40,22 @@
             return grid;
         }
 
-        public static bool IsOutOfRange(int[,] grid, (int x, int y) coord) =>
+        public static T[,] CreateGrid<T>(string[] lines, Func<char, T> transform)
+        {
+            var xLength = lines[0].Length;
+            var yLength = lines.Length;
+
+            var grid = new T[xLength, yLength];
+
+            foreach (var (x, y) in Iterate(grid))
+            {
+                grid[x, y] = transform(lines[y][x]);
+            }
+
+            return grid;
+        }
+
+        public static bool IsOutOfRange<T>(T[,] grid, (int x, int y) coord) =>
             coord.x < 0 || coord.x >= grid.GetLength(0) || coord.y < 0 || coord.y >= grid.GetLength(1);
 
         public static IEnumerable<(int x, int y)> GetNeighbours(int[,] grid, (int x, int y) coord, bool includeDiags) => 
