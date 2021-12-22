@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using AOC2021;
 using AOC2021.Puzzles;
 using System.Diagnostics;
+using System.Reflection;
 
 var type = typeof(IPuzzle);
 var puzzles = AppDomain.CurrentDomain.GetAssemblies()
@@ -10,6 +12,12 @@ var puzzles = AppDomain.CurrentDomain.GetAssemblies()
     .OfType<IPuzzle>()
     .OrderBy(x => x.PuzzleNumber)
     .ToList();
+
+var focusPuzzle = puzzles.FirstOrDefault(x => x.GetType().GetCustomAttribute<FocusAttribute>() != null);
+if (focusPuzzle != null)
+{
+    puzzles = puzzles.Where(x => x == focusPuzzle).ToList();
+}
 
 var sw = new Stopwatch();
 Console.WriteLine("Advent Of Code 2021");
