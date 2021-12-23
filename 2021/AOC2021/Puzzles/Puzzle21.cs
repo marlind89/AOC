@@ -4,7 +4,7 @@ namespace AOC2021.Puzzles
 {
     internal class Puzzle21 : Puzzle<long>
     {
-        record Player(int Position, int Score = 0)
+        record struct Player(int Position, int Score = 0)
         {
             public Player Move(int positions) 
             {
@@ -16,7 +16,7 @@ namespace AOC2021.Puzzles
             public bool IsWin(int max) => Score >= max;
         }
 
-        record Game(Player Player1, Player Player2)
+        record struct Game(Player Player1, Player Player2)
         {
             private static readonly int[] QuantumRolls =
                 Enumerable.Range(1, 3)
@@ -50,12 +50,19 @@ namespace AOC2021.Puzzles
                 _ => throw new InvalidOperationException("Invalid player")
             };
 
-            public IEnumerable<Game> QuantumMove(int player) => player switch
+            public IEnumerable<Game> QuantumMove(int player)
             {
-                0 => QuantumRolls.Select(x => (this with { Player1 = Player1.Move(x) })),
-                1 => QuantumRolls.Select(x => (this with { Player2 = Player2.Move(x) })),
-                _ => Enumerable.Empty<Game>()
-            };
+                var game = this;
+
+                return player switch
+                {
+
+                    0 => QuantumRolls.Select(x => (game with { Player1 = game.Player1.Move(x) })),
+                    1 => QuantumRolls.Select(x => (game with { Player2 = game.Player2.Move(x) })),
+                    _ => Enumerable.Empty<Game>()
+                };
+            }
+            
         }
 
         protected override void Solve(string[] lines)
