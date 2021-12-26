@@ -2,7 +2,6 @@
 
 namespace AOC2021.Puzzles
 {
-    [Focus]
     internal class Puzzle23 : Puzzle<int>
     {
         readonly struct Board
