@@ -1,5 +1,4 @@
-﻿using AOC.Helpers.Extensions;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace AOC2022.Puzzles;
 

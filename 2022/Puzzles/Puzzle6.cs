@@ -1,8 +1,6 @@
-﻿using AOC.Helpers.Extensions;
+﻿namespace AOC2022.Puzzles;
 
-namespace AOC2022.Puzzles;
-
-internal partial class Puzzle6 : Puzzle<int>
+internal class Puzzle6 : Puzzle<int>
 {
     protected override void Solve(string[] lines)
     {
