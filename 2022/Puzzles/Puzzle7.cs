@@ -1,6 +1,6 @@
 ﻿namespace AOC2022.Puzzles;
 
-internal partial class Puzzle7 : Puzzle<int>
+internal class Puzzle7 : Puzzle<int>
 {
     interface INode
     {

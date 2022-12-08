@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace AOC2022.Puzzles;
+﻿namespace AOC2022.Puzzles;
 
 internal class Puzzle1 : Puzzle<int>
 {

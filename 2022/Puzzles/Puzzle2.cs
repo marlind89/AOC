@@ -1,6 +1,4 @@
-﻿using AOC.Helpers.Extensions;
-
-namespace AOC2022.Puzzles;
+﻿namespace AOC2022.Puzzles;
 
 internal class Puzzle2 : Puzzle<int>
 {
