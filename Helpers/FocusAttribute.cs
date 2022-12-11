@@ -1,5 +1,6 @@
 ﻿namespace AOC.Helpers;
 
-internal class FocusAttribute : Attribute
+[AttributeUsage(AttributeTargets.Class)]
+public class FocusAttribute : Attribute
 {
 }
