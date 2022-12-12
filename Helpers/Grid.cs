@@ -58,7 +58,7 @@ public class Grid
     public static bool IsOutOfRange<T>(T[,] grid, (int x, int y) coord) =>
         coord.x < 0 || coord.x >= grid.GetLength(0) || coord.y < 0 || coord.y >= grid.GetLength(1);
 
-    public static IEnumerable<(int x, int y)> GetNeighbours(int[,] grid, (int x, int y) coord, bool includeDiags) => 
+    public static IEnumerable<(int x, int y)> GetNeighbours<T>(T[,] grid, (int x, int y) coord, bool includeDiags) => 
         (includeDiags ? NeighborOffsetsWithDiags : NeighborOffsets)
            .Select(c => (coord.x + c.x, coord.y + c.y))
            .Where(c => !IsOutOfRange(grid, c));
