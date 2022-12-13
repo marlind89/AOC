@@ -1,6 +1,6 @@
 ﻿namespace AOC2022.Puzzles;
 
-internal class Puzzle12 : Puzzle<long, long>
+internal class Puzzle12 : Puzzle<int>
 {
     protected override void Solve(string[] lines)
     {
