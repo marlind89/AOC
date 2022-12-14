@@ -62,4 +62,27 @@ public class Grid
         (includeDiags ? NeighborOffsetsWithDiags : NeighborOffsets)
            .Select(c => (coord.x + c.x, coord.y + c.y))
            .Where(c => !IsOutOfRange(grid, c));
+
+    public static IEnumerable<(int x, int y)> IterateBetween((int x, int y) first, (int x, int y) second)
+    {
+        return IterateBetween(first.x, second.x)
+            .SelectMany(x => IterateBetween(first.y, second.y).Select(y => (x, y)));
+    }
+
+    public static void Print<T>(T[,] arr)
+    {
+        for (int y = 0; y < arr.GetLength(1); y++)
+        {
+            for (int x = 0; x < arr.GetLength(0); x++)
+            {
+                Console.Write(arr[x, y]);
+            }
+            Console.WriteLine();
+        }
+    }
+
+    private static IEnumerable<int> IterateBetween(int first, int second)
+    {
+        return Enumerable.Range(Math.Min(first, second), Math.Abs(first - second) + 1);
+    }
 }
