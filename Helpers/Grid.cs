@@ -14,11 +14,11 @@ public class Grid
         }
     }
 
-    public static IEnumerable<(int x, int y)> Iterate<T>(T[,] arr)
+    public static IEnumerable<(int x, int y)> Iterate<T>(T[,] arr, int startY = 0)
     {
         for (int x = 0; x < arr.GetLength(0); x++)
         {
-            for (int y = 0; y < arr.GetLength(1); y++)
+            for (int y = startY; y < arr.GetLength(1); y++)
             {
                 yield return (x, y);
             }
