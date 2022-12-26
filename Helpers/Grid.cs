@@ -40,7 +40,7 @@ public class Grid
         return grid;
     }
 
-    public static T[,] CreateGrid<T>(string[] lines, Func<char, T> transform)
+    public static T[,] CreateGrid<T>(string[] lines, Func<char, T> transform, char? oobDefaultValue = null)
     {
         var xLength = lines[0].Length;
         var yLength = lines.Length;
@@ -49,7 +49,9 @@ public class Grid
 
         foreach (var (x, y) in Iterate(grid))
         {
-            grid[x, y] = transform(lines[y][x]);
+            var line = lines[y];
+            var cellVal = oobDefaultValue == null || line.Length > x ? line[x] : oobDefaultValue.Value;
+            grid[x, y] = transform(cellVal);
         }
 
         return grid;
