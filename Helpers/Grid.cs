@@ -71,13 +71,14 @@ public class Grid
             .SelectMany(x => IterateBetween(first.y, second.y).Select(y => (x, y)));
     }
 
-    public static void Print<T>(T[,] arr)
+    public static void Print<T>(T[,] arr, Func<T, string>? transform = null)
     {
+        transform ??= x => x?.ToString() ?? "";
         for (int y = 0; y < arr.GetLength(1); y++)
         {
             for (int x = 0; x < arr.GetLength(0); x++)
             {
-                Console.Write(arr[x, y]);
+                Console.Write(transform(arr[x, y]));
             }
             Console.WriteLine();
         }
