@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2022", "2022\AOC2022.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2021", "2021\AOC2021.csproj", "{0B7369B2-EE67-466D-81A1-A291B971F18C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC.Helpers", "Helpers\AOC.Helpers.csproj", "{BD8381C6-5AF4-44BF-B55D-45A6F3A26AD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC.Helpers", "Helpers\AOC.Helpers.csproj", "{BD8381C6-5AF4-44BF-B55D-45A6F3A26AD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2023", "AOC2023\AOC2023.csproj", "{F67EBE82-2AB8-43DA-B57A-1C4D444C454B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BD8381C6-5AF4-44BF-B55D-45A6F3A26AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD8381C6-5AF4-44BF-B55D-45A6F3A26AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD8381C6-5AF4-44BF-B55D-45A6F3A26AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67EBE82-2AB8-43DA-B57A-1C4D444C454B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67EBE82-2AB8-43DA-B57A-1C4D444C454B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67EBE82-2AB8-43DA-B57A-1C4D444C454B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67EBE82-2AB8-43DA-B57A-1C4D444C454B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
