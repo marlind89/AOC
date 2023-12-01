@@ -43,4 +43,17 @@ public abstract class Puzzle<T1, T2> : IPuzzle
         builder.AppendLine($"  Part Two: {Two}");
         return builder.ToString();
     }
+
+    public IEnumerable<string> ValidateAnswers(string one, string two)
+    {
+        const string errorMessage = "Puzzle {0} part {1} is not correct anymore! Expected: {2}, Actual: {3}";
+        if (One != null && !string.IsNullOrWhiteSpace(one) && One.ToString()?.Trim() != one.Trim())
+        {
+            yield return string.Format(errorMessage, PuzzleNumber, "One", one, One);
+        }
+        if (Two != null && !string.IsNullOrWhiteSpace(two) && Two.ToString()?.Trim() != two.Trim())
+        {
+            yield return string.Format(errorMessage, PuzzleNumber, "Two", two, Two);
+        }
+    }
 }

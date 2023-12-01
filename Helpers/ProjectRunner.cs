@@ -40,6 +40,18 @@ public static class ProjectRunner
         Console.WriteLine(new string('-', 30));
         Console.WriteLine($"Total time (ms): {sw.ElapsedMilliseconds}");
 
+        if (focusPuzzle == null)
+        {
+            var errors = PuzzleValidator.ValidatePuzzles(puzzles);
+            if (!string.IsNullOrWhiteSpace(errors))
+            {
+                Console.WriteLine();
+                Console.WriteLine("!!!!!!!!!!!! Some puzzles are not valid anymore !!!!!!!!!!!!");
+                Console.WriteLine();
+                Console.WriteLine(errors);
+            }
+        }
+
         Console.ReadLine();
     }
 }

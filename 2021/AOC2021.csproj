@@ -18,6 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Answers.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Answers.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Helpers\AOC.Helpers.csproj" />
   </ItemGroup>
 
