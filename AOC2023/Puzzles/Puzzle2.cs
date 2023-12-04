@@ -26,7 +26,7 @@ internal partial class Puzzle2 : Puzzle<int>
                 .ToList();
 
             return new Game(gameId, sets);
-        });
+        }).ToList();
 
         One = games
             .Where(x => x.Sets.All(set => !AvailableCubes.Any(c => set.Cubes.TryGetValue(c.Key, out var amount) && amount > c.Value)))
