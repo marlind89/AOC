@@ -4,6 +4,30 @@ internal class Puzzle1 : Puzzle<int>
 {
     private static readonly List<string> Digits = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
+    private static int FindNumber(ReadOnlySpan<char> ls, bool fromStart)
+    {
+        int startIndex = fromStart ? 0 : ls.Length - 1;
+        int increment = fromStart ? 1 : -1;
+        for (int i = startIndex; fromStart ? i < ls.Length : i >= 0; i += increment)
+        {
+            var currentChar = ls[i];
+            if (char.IsNumber(currentChar))
+            {
+                return currentChar - '0';
+            }
+
+            for (var j = 0; j < Digits.Count; j++)
+            {
+                var digit = Digits[j];
+                if (fromStart ? ls[i..].StartsWith(digit) : ls[..(i + 1)].EndsWith(digit))
+                {
+                    return j + 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     protected override void Solve(string[] lines)
     {
         One = lines
@@ -12,19 +36,8 @@ internal class Puzzle1 : Puzzle<int>
         Two = lines
             .Sum(line =>
             {
-                var firstNumber = Enumerable.Range(0, line.Length)
-                    .Select(idx => char.IsNumber(line[idx])
-                        ? line[idx] - '0'
-                        : 1 + Digits.FindIndex(word => line[idx..].StartsWith(word)))
-                    .FirstOrDefault(x => x > 0);
-
-                var lastNumber = Enumerable.Range(0, line.Length)
-                    .Select(idx => char.IsNumber(line[^(idx + 1)])
-                        ? line[^(idx + 1)] - '0'
-                        : 1 + Digits.FindIndex(word => line[..^idx].EndsWith(word)))
-                    .FirstOrDefault(x => x > 0);
-
-                return int.Parse($"{firstNumber}{lastNumber}");
+                var ls = line.AsSpan();
+                return int.Parse($"{FindNumber(ls, true)}{FindNumber(ls, false)}");
             });
     }
 }
