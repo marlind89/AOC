@@ -14,4 +14,6 @@ public static class EnumerableExtensions
             yield return enumerators.Select(x => x.Current).ToList();
         }
     }
+
+    public static long Lcm(this IEnumerable<int> numbers) => Maths.Lcm(numbers);
 }
