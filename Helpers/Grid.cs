@@ -84,6 +84,22 @@ public class Grid
         }
     }
 
+    public static (int x, int y) FindFirstLocation<T>(T[,] arr, T val)
+    {
+        for (int y = 0; y < arr.GetLength(1); y++)
+        {
+            for (int x = 0; x < arr.GetLength(0); x++)
+            {
+                if (arr[x, y]?.Equals(val) ?? false)
+                {
+                    return (x, y);
+                }
+            }
+        }
+
+        throw new Exception("Failed to find location");
+    }
+
     private static IEnumerable<int> IterateBetween(int first, int second)
     {
         return Enumerable.Range(Math.Min(first, second), Math.Abs(first - second) + 1);
