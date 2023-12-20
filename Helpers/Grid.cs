@@ -100,6 +100,19 @@ public class Grid
         throw new Exception("Failed to find location");
     }
 
+    public static T[,] Slice<T>(T[,] arr, (int x, int y) first, (int x, int y) second)
+    {
+        var grid = new T[Math.Abs(second.x - first.x) + 1, Math.Abs(second.y - first.y) + 1];
+
+        var xMin = Math.Min(first.x, second.x);
+        var yMin = Math.Min(first.y, second.y);
+        foreach (var (x, y) in IterateBetween(first, second))
+        {
+            grid[x - xMin, y - yMin] = arr[x, y];
+        }
+        return grid;
+    }
+
     private static IEnumerable<int> IterateBetween(int first, int second)
     {
         return Enumerable.Range(Math.Min(first, second), Math.Abs(first - second) + 1);

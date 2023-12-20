@@ -36,6 +36,8 @@ internal class Puzzle10 : Puzzle<int>
         var back = connectedNodes[1];
         HashSet<(int x, int y)> visitedPipes = [(ax, ay), front.Current, back.Current];
 
+        grid[ax, ay] = GetStartPipe((ax, ay), front.Current, back.Current);
+
         var pipeFarthestAway = 1;
         while (true)
         {
@@ -49,6 +51,7 @@ internal class Puzzle10 : Puzzle<int>
         }
 
         One = pipeFarthestAway;
+        Two = GetTilesEnclosedByLoop(grid, visitedPipes);
     }
 
     private static IEnumerable<Pipe> GetStartNodes(char[,] grid, int ax, int ay)
@@ -71,6 +74,72 @@ internal class Puzzle10 : Puzzle<int>
                 yield return new Pipe((nx, ny), (ax, ay));
             }
         }
+    }
+
+    private static char GetStartPipe((int x, int y) start, (int x, int y) first, (int x, int y) second)
+    {
+        var pipeDirs = new List<Direction>
+        {
+            GetPipeDirection(start, first),
+            GetPipeDirection(start, second)
+        }.OrderBy(x => x).ToArray();
+
+        return (pipeDirs[0], pipeDirs[1]) switch
+        {
+            (Direction.Up, Direction.Right) => 'L',
+            (Direction.Up, Direction.Down) => '|',
+            (Direction.Up, Direction.Left) => 'J',
+            (Direction.Right, Direction.Down) => 'F',
+            (Direction.Right, Direction.Left) => '-',
+            (Direction.Down, Direction.Left) => '7',
+            _ => throw new Exception("Failed to find start pipe")
+        };
+    }
+
+    private static Direction GetPipeDirection((int x, int y) start, (int x, int y) pipeLoc)
+    {
+        var (dx, dy) = (pipeLoc.x - start.x, pipeLoc.y - start.y);
+        return (dx, dy) switch
+        {
+            (-1, 0) => Direction.Left,
+            (1, 0) => Direction.Right,
+            (0, -1) => Direction.Up,
+            (0, 1) => Direction.Down,
+            _ => throw new Exception("Unknown pipe direction")
+        }; ;
+    }
+
+    private static int GetTilesEnclosedByLoop(char[,] grid, HashSet<(int x, int y)> visitedPipes)
+    {
+        var insideCount = 0;
+        var isInside = false;
+        char? startCorner = null;
+        
+        for (var y = 0; y < grid.GetLength(1); y++)
+        {
+            for (var x = 0; x < grid.GetLength(0); x++)
+            {
+                var tile = grid[x, y];
+                if (!visitedPipes.Contains((x, y)))
+                {
+                    if (isInside)
+                    {
+                        insideCount++;
+                    }
+                }
+                else if (tile == '|' || (startCorner == 'L' && tile == '7') || (startCorner == 'F' && tile == 'J'))
+                {
+                    isInside = !isInside;
+                    startCorner = null;
+                }
+                else if ("L7FJ".Contains(tile))
+                {
+                    startCorner = startCorner == null ? tile : null;
+                }
+            }
+        }
+
+        return insideCount;
     }
 }
 
