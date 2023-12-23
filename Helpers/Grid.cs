@@ -117,4 +117,7 @@ public class Grid
     {
         return Enumerable.Range(Math.Min(first, second), Math.Abs(first - second) + 1);
     }
+
+    public static int ManhattanDistance((int x, int y) first, (int x, int y) second) =>
+       Math.Abs(first.x - second.x) + Math.Abs(first.y - second.y);
 }
